@@ -1,4 +1,4 @@
-import 'package:barber/src/features/core/helpers/colors_constants.dart';
+import 'package:barber/src/core/helpers/colors_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
