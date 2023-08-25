@@ -1,4 +1,5 @@
 import 'package:barber/src/core/helpers/colors_constants.dart';
+import 'package:barber/src/core/helpers/images_constants.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -11,7 +12,7 @@ class LoginPage extends StatelessWidget {
       body: DecoratedBox(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background_image_chair.jpg'),
+            image: AssetImage(ImagesConstants.backgroundChair),
             opacity: 0.5,
             fit: BoxFit.cover,
           ),
@@ -29,7 +30,7 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/images/imgLogo.png',
+                          ImagesConstants.imgLogo,
                         ),
                         const SizedBox(
                           height: 25,

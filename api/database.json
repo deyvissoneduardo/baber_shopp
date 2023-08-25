@@ -2,9 +2,9 @@
     "users": [
         {
             "id": 5,
-            "name": "Rodrigo Rahman 1",
-            "email": "rodrigorahman1@gmail.com",
-            "password": "123123",
+            "name": "Deyvisson Eduardo",
+            "email": "eduardo@gmail.com",
+            "password": "123qwe",
             "profile": "ADM",
             "work_days": [
                 "Seg",

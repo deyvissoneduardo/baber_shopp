@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserLoginServiceImpl implements UserLoginService {
   final UserRepository userRepository;
 
-  UserLoginServiceImpl(this.userRepository);
+  UserLoginServiceImpl({required this.userRepository});
   @override
   Future<Either<ServiceException, Nil>> execute(
       String email, String password) async {
