@@ -1,4 +1,4 @@
-import 'package:barber/src/core/helpers/images_constants.dart';
+import 'package:barber/src/core/ui/helpers/images_constants.dart';
 import 'package:barber/src/features/auth/login/login_page.dart';
 import 'package:flutter/material.dart';
 

@@ -2,7 +2,7 @@ import 'package:barber/src/core/exceptions/auth_exception.dart';
 import 'package:barber/src/core/exceptions/service_exception.dart';
 import 'package:barber/src/core/fp/either.dart';
 import 'package:barber/src/core/fp/nil.dart';
-import 'package:barber/src/core/helpers/local_key_constants.dart';
+import 'package:barber/src/core/ui/helpers/local_key_constants.dart';
 import 'package:barber/src/repositories/user/user_repository.dart';
 import 'package:barber/src/service/user_login/user_login_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
