@@ -39,9 +39,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         case LoginState(status: LoginStateStatus.error):
           Messages.showError('Error ao realizar login.', context);
         case LoginState(status: LoginStateStatus.adminLogin):
-          break;
+          Messages.showInfo('ADM', context);
         case LoginState(status: LoginStateStatus.employeelogin):
-          break;
+          Messages.showInfo('employee', context);
       }
     });
     return Scaffold(
