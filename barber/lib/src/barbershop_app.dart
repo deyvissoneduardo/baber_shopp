@@ -1,4 +1,5 @@
 import 'package:asyncstate/widget/async_state_builder.dart';
+import 'package:barber/src/core/ui/helpers/babershop_nav_gloval_key.dart';
 import 'package:barber/src/features/auth/login/login_page.dart';
 import 'package:barber/src/core/ui/widgets/babershop_loader.dart';
 import 'package:barber/src/features/splash/splash_page.dart';
@@ -17,6 +18,7 @@ class BarbershopApp extends StatelessWidget {
         title: 'Barber Shopp',
         theme: BabershopTheme.themeData,
         navigatorObservers: [asyncNavigatorObserver],
+        navigatorKey: BabershopNavGlovalKey.instance.navkey,
         routes: {
           '/': (_) => const SplashPage(),
           '/auth/login': (_) => const LoginPage(),
