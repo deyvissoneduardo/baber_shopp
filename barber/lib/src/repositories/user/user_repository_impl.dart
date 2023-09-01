@@ -42,21 +42,21 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<RepositoryException, UserModel>> me() async {
+  Future<Either<RepositoryExecption, UserModel>> me() async {
     try {
       final Response(:data) = await restClient.auth.get('/me');
       return Success(UserModel.fromMap(data));
     } on DioException catch (e, s) {
       log('Erro ao buscar usuario', error: e, stackTrace: s);
-      return Failure(RepositoryException('Erro ao buscar usuario'));
+      return Failure(RepositoryExecption('Erro ao buscar usuario'));
     } on ArgumentError catch (e, s) {
       log('Invalid Json', error: e, stackTrace: s);
-      return Failure(RepositoryException(e.message));
+      return Failure(RepositoryExecption(e.message));
     }
   }
 
   @override
-  Future<Either<RepositoryException, Nil>> registerAdm(
+  Future<Either<RepositoryExecption, Nil>> registerAdm(
       ({String email, String name, String password}) userData) async {
     try {
       await restClient.unAuth.post('/users', data: {
@@ -68,7 +68,7 @@ class UserRepositoryImpl implements UserRepository {
       return Success(nil);
     } on DioException catch (e, s) {
       log('Erro ao registrar usuario admin', error: e, stackTrace: s);
-      return Failure(RepositoryException('Erro ao registrar usuario admin'));
+      return Failure(RepositoryExecption('Erro ao registrar usuario admin'));
     }
   }
 }
