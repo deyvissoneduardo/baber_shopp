@@ -1,9 +1,9 @@
 import 'package:asyncstate/asyncstate.dart';
 import 'package:barber/src/core/fp/either.dart';
-import 'package:barber/src/features/auth/register/user_register_provider.dart';
+import 'package:barber/src/features/auth/register/user/user_register_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../core/providers/application_providers.dart';
+import '../../../../core/providers/application_providers.dart';
 
 part 'user_register_vm.g.dart';
 
@@ -22,7 +22,6 @@ class UserRegisterVm extends _$UserRegisterVm {
       {required String name,
       required String email,
       required String password}) async {
-    final loaderHandler = AsyncLoaderHandler()..start();
     final userService = ref.watch(userRegisterAdmServiceProvider);
 
     final userData = (
@@ -40,6 +39,5 @@ class UserRegisterVm extends _$UserRegisterVm {
       case Failure():
         state = UserRegisterStateStatus.error;
     }
-    loaderHandler.close();
   }
 }

@@ -1,12 +1,13 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:barber/src/core/ui/helpers/context_extension.dart';
 import 'package:barber/src/core/ui/helpers/form_helper.dart';
-import 'package:barber/src/features/auth/register/user_register_vm.dart';
+import 'package:barber/src/features/auth/register/user/user_register_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:validatorless/validatorless.dart';
 
-import '../../../core/ui/helpers/messages.dart';
+import '../../../../core/ui/helpers/messages.dart';
 
 class UserRegisterPage extends ConsumerStatefulWidget {
   const UserRegisterPage({super.key});
@@ -39,6 +40,7 @@ class _UserRegisterPageState extends ConsumerState<UserRegisterPage> {
           break;
         case UserRegisterStateStatus.success:
           Messages.showSuccess('ADM Cadastrado', context);
+          context.pushNamed('/auth/register/babershop');
         case UserRegisterStateStatus.error:
           Messages.showError(
               'Error ao registrar usuário adminstrador', context);
