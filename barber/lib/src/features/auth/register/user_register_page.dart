@@ -17,9 +17,9 @@ class UserRegisterPage extends ConsumerStatefulWidget {
 
 class _UserRegisterPageState extends ConsumerState<UserRegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  final _nameEC = TextEditingController(text: 'teste');
-  final _emailEC = TextEditingController(text: 'teste@gmail.com');
-  final _passwordEC = TextEditingController(text: '123qwe');
+  final _nameEC = TextEditingController();
+  final _emailEC = TextEditingController();
+  final _passwordEC = TextEditingController();
 
   @override
   void dispose() {
@@ -91,7 +91,6 @@ class _UserRegisterPageState extends ConsumerState<UserRegisterPage> {
               ),
               const SizedBox(height: 24),
               TextFormField(
-                initialValue: '123qwe',
                 onTapOutside: (_) => context.unfocus(),
                 validator: Validatorless.multiple([
                   Validatorless.required('Confirma Senha Obrigatório'),
