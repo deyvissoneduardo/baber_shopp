@@ -42,7 +42,7 @@ class _SplashPageState extends State<SplashPage> {
         child: AnimatedOpacity(
           opacity: _animationOpacityLogo,
           curve: Curves.easeIn,
-          duration: const Duration(microseconds: 10),
+          duration: const Duration(seconds: 5),
           onEnd: () => Navigator.of(context).pushAndRemoveUntil(
               PageRouteBuilder(
                 settings: const RouteSettings(name: '/auth/login'),
@@ -61,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
               width: _logoAnimationWidth,
               height: _logoAnimationHeigth,
               curve: Curves.linearToEaseOut,
-              duration: const Duration(microseconds: 10),
+              duration: const Duration(seconds: 5),
               child: Image.asset(
                 ImagesConstants.imgLogo,
                 fit: BoxFit.cover,

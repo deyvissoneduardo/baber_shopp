@@ -15,6 +15,18 @@ sealed class BabershopTheme {
   static ThemeData themeData = ThemeData(
     fontFamily: FontsConstants.fontFamily,
     useMaterial3: true,
+    appBarTheme: const AppBarTheme(
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: ColorsConstants.brow,
+        ),
+        backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+          fontFamily: FontsConstants.fontFamily,
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        )),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,

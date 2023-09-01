@@ -2,6 +2,7 @@ import 'package:asyncstate/widget/async_state_builder.dart';
 import 'package:barber/src/core/ui/helpers/babershop_nav_gloval_key.dart';
 import 'package:barber/src/features/auth/login/login_page.dart';
 import 'package:barber/src/core/ui/widgets/babershop_loader.dart';
+import 'package:barber/src/features/auth/register/user_register_page.dart';
 import 'package:barber/src/features/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +19,15 @@ class BarbershopApp extends StatelessWidget {
         title: 'Barber Shopp',
         theme: BabershopTheme.themeData,
         navigatorObservers: [asyncNavigatorObserver],
-        navigatorKey: BabershopNavGlovalKey.instance.navkey,
+        navigatorKey: BarbershopNavGlobalKey.instance.navKey,
         routes: {
           '/': (_) => const SplashPage(),
           '/auth/login': (_) => const LoginPage(),
-          '/home/adm': (_) => const LoginPage(),
-          '/home/employee': (_) => const LoginPage(),
+          '/auth/register/user': (_) => const UserRegisterPage(),
+          'auth/register/babershop': (_) =>
+              const Text('auth/register/babershop'),
+          '/home/adm': (_) => const Text('adm'),
+          '/home/employee': (_) => const Text('employee'),
         },
       ),
     );

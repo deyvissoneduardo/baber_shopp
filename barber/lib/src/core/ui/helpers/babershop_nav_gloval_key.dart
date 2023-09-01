@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class BabershopNavGlovalKey {
-  final navkey = GlobalKey<NavigatorState>();
-  static BabershopNavGlovalKey? _instance;
+class BarbershopNavGlobalKey {
+  static BarbershopNavGlobalKey? _instance;
+  final navKey = GlobalKey<NavigatorState>();
 
-  BabershopNavGlovalKey._();
-
-  static BabershopNavGlovalKey get instance =>
-      _instance ??= BabershopNavGlovalKey._();
+  // Avoid self instance
+  BarbershopNavGlobalKey._();
+  static BarbershopNavGlobalKey get instance =>
+      _instance ??= BarbershopNavGlobalKey._();
 }
