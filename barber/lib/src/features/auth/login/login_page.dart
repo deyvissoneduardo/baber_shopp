@@ -17,8 +17,8 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _emailEC = TextEditingController();
-  final _passwordEC = TextEditingController();
+  final _emailEC = TextEditingController(text: 'eduardo@gmail.com');
+  final _passwordEC = TextEditingController(text: '123qwe');
 
   @override
   void dispose() {
@@ -39,7 +39,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         case LoginState(status: LoginStateStatus.error):
           Messages.showError('Error ao realizar login.', context);
         case LoginState(status: LoginStateStatus.adminLogin):
-          Messages.showInfo('ADM', context);
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/home/adm', (route) => false);
         case LoginState(status: LoginStateStatus.employeelogin):
           Messages.showInfo('employee', context);
       }
