@@ -1,18 +1,19 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:barber/src/core/ui/helpers/colors_constants.dart';
 import 'package:flutter/material.dart';
 
 class HoursPanel extends StatelessWidget {
+  final List<int>? enabledTimes;
   final int startTime;
   final int endTime;
   final ValueChanged<int> onHourPressed;
 
   const HoursPanel({
-    Key? key,
+    super.key,
     required this.startTime,
     required this.endTime,
     required this.onHourPressed,
-  }) : super(key: key);
+    this.enabledTimes,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class HoursPanel extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Selecione horarios de atendimento',
+          'Selecione os horários de atendimento',
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
@@ -36,8 +37,9 @@ class HoursPanel extends StatelessWidget {
             for (int i = startTime; i <= endTime; i++)
               TimeButton(
                 label: '${i.toString().padLeft(2, '0')}:00',
-                onPressed: onHourPressed,
                 value: i,
+                onPressed: onHourPressed,
+                enabledTimes: enabledTimes,
               )
           ],
         )
@@ -47,6 +49,7 @@ class HoursPanel extends StatelessWidget {
 }
 
 class TimeButton extends StatefulWidget {
+  final List<int>? enabledTimes;
   final String label;
   final int value;
   final ValueChanged<int> onPressed;
@@ -56,6 +59,7 @@ class TimeButton extends StatefulWidget {
     required this.label,
     required this.value,
     required this.onPressed,
+    this.enabledTimes,
   });
 
   @override
@@ -64,20 +68,32 @@ class TimeButton extends StatefulWidget {
 
 class _TimeButtonState extends State<TimeButton> {
   var selected = false;
+
   @override
   Widget build(BuildContext context) {
     final textColor = selected ? Colors.white : ColorsConstants.gray;
     var buttonColor = selected ? ColorsConstants.brow : Colors.white;
     final buttonBorderColor =
         selected ? ColorsConstants.brow : ColorsConstants.gray;
+
+    final TimeButton(:value, :label, :onPressed, :enabledTimes) = widget;
+
+    final disableTime = enabledTimes != null && !enabledTimes.contains(value);
+
+    if (disableTime) {
+      buttonColor = Colors.grey[400]!;
+    }
+
     return InkWell(
       borderRadius: BorderRadius.circular(8),
-      onTap: () {
-        widget.onPressed(widget.value);
-        setState(() {
-          selected = !selected;
-        });
-      },
+      onTap: disableTime
+          ? null
+          : () {
+              setState(() {
+                selected = !selected;
+                onPressed(value);
+              });
+            },
       child: Container(
         width: 64,
         height: 36,
@@ -90,7 +106,7 @@ class _TimeButtonState extends State<TimeButton> {
         ),
         child: Center(
           child: Text(
-            widget.label,
+            label,
             style: TextStyle(
               fontSize: 12,
               color: textColor,

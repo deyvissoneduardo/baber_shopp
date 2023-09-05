@@ -80,7 +80,7 @@ class _BarbershopRegisterPageState
                   ),
                 ),
                 const SizedBox(height: 24),
-                WeekdaysPage(
+                WeekdaysPanel(
                   onDayPressed: (String value) {
                     barbershopRegisterVM.addOrRemoveOpenDay(value);
                   },
