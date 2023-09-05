@@ -16,7 +16,7 @@ class BarbershopApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AsyncStateBuilder(
-      customLoader: const BabershopLoader(),
+      customLoader: const BarbershopLoader(),
       builder: (asyncNavigatorObserver) => MaterialApp(
         title: 'Barber Shopp',
         theme: BabershopTheme.themeData,

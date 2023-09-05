@@ -9,4 +9,7 @@ abstract interface class UserRepository {
   Future<Either<RepositoryExecption, UserModel>> me();
   Future<Either<RepositoryExecption, Nil>> registerAdm(
       ({String name, String email, String password}) userData);
+
+  Future<Either<RepositoryExecption, List<UserModel>>> getEmployees(
+      int barbershopId);
 }

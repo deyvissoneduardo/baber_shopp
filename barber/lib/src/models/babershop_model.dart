@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class BabershopModel {
+class BarbershopModel {
   final int id;
   final String name;
   final String email;
   final List<String> openingDays;
   final List<int> openingHours;
 
-  BabershopModel({
+  BarbershopModel({
     required this.id,
     required this.name,
     required this.email,
@@ -14,7 +14,7 @@ class BabershopModel {
     required this.openingHours,
   });
 
-  factory BabershopModel.fromMap(Map<String, dynamic> map) {
+  factory BarbershopModel.fromMap(Map<String, dynamic> map) {
     return switch (map) {
       {
         'id': int id,
@@ -23,7 +23,7 @@ class BabershopModel {
         'opening_days': final List openingDays,
         'opening_hours': final List openingHours,
       } =>
-        BabershopModel(
+        BarbershopModel(
           id: id,
           name: name,
           email: email,

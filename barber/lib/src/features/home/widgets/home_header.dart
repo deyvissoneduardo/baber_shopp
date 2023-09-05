@@ -1,19 +1,26 @@
+import 'package:barber/src/core/providers/application_providers.dart';
 import 'package:barber/src/core/ui/barbershop_icons.dart';
 import 'package:barber/src/core/ui/helpers/colors_constants.dart';
 import 'package:barber/src/core/ui/helpers/images_constants.dart';
+import 'package:barber/src/core/ui/widgets/babershop_loader.dart';
+import 'package:barber/src/features/home/adm/home_adm_vm.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeHeader extends StatelessWidget {
+class HomeHeader extends ConsumerWidget {
   final bool showFilter;
+
   const HomeHeader({super.key}) : showFilter = true;
   const HomeHeader.withoutFilter({super.key}) : showFilter = false;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final barbershop = ref.watch(getMyBarbershopProvider);
+
     return Container(
-      width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(24),
       margin: const EdgeInsets.only(bottom: 16),
+      width: MediaQuery.sizeOf(context).width,
       decoration: const BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.only(
@@ -21,77 +28,90 @@ class HomeHeader extends StatelessWidget {
           bottomRight: Radius.circular(32),
         ),
         image: DecorationImage(
-          image: AssetImage(ImagesConstants.backgroundChair),
+          image: AssetImage(
+            ImagesConstants.backgroundChair,
+          ),
           fit: BoxFit.cover,
-          opacity: 0.8,
+          opacity: 0.5,
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const CircleAvatar(
-                backgroundColor: Color(0xffbdbdbd),
-                child: SizedBox.shrink(),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              const Flexible(
-                child: Text(
-                  'Deyvisson Eduardo Almeida Arouche',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
+          barbershop.maybeWhen(
+            data: (barbershopData) {
+              return Row(
+                children: [
+                  const CircleAvatar(
+                    backgroundColor: Color(0xffbdbdbd),
+                    child: SizedBox.shrink(),
                   ),
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              const Expanded(
-                child: Text(
-                  'Editar',
-                  style: TextStyle(
-                    color: ColorsConstants.brow,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                  const SizedBox(
+                    width: 16,
                   ),
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  BarbershopIcons.exit,
-                  color: ColorsConstants.brow,
-                  size: 32,
-                ),
-              )
-            ],
+                  Flexible(
+                    child: Text(
+                      barbershopData.name,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  const Expanded(
+                    child: Text(
+                      'editar',
+                      style: TextStyle(
+                        color: ColorsConstants.brow,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      ref.read(homeAdmVmProvider.notifier).logout();
+                    },
+                    icon: const Icon(
+                      BarbershopIcons.exit,
+                      color: ColorsConstants.brow,
+                      size: 32,
+                    ),
+                  )
+                ],
+              );
+            },
+            orElse: () {
+              return const Center(
+                child: BarbershopLoader(),
+              );
+            },
           ),
           const SizedBox(
             height: 24,
           ),
           const Text(
-            'Bem Vindo!',
+            'Bem Vindo',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 18,
               fontWeight: FontWeight.w500,
+              fontSize: 18,
             ),
           ),
           const SizedBox(
             height: 24,
           ),
           const Text(
-            'Agende um Cliente',
+            'Agenda um Cliente',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 40,
               fontWeight: FontWeight.w600,
+              fontSize: 40,
             ),
           ),
           Offstage(
@@ -104,15 +124,13 @@ class HomeHeader extends StatelessWidget {
             offstage: !showFilter,
             child: TextFormField(
               decoration: const InputDecoration(
-                label: Text(
-                  'Buscar Coloraborador',
-                ),
+                label: Text('Buscar Colaborador'),
                 suffixIcon: Padding(
                   padding: EdgeInsets.only(right: 24.0),
                   child: Icon(
                     BarbershopIcons.search,
                     color: ColorsConstants.brow,
-                    size: 24,
+                    size: 26,
                   ),
                 ),
               ),
