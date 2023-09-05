@@ -12,8 +12,43 @@
             ],
             "work_hours": [
                 6,
+                7
+            ]
+        },
+        {
+            "id": 6,
+            "name": "teste",
+            "email": "teste@gmail.com",
+            "password": "123qwe",
+            "barbershop_id": 2,
+            "profile": "EMPLOYEE",
+            "work_days": [
+                "Seg",
+                "Sab"
+            ],
+            "work_hours": [
+                6,
                 7,
-                8
+                8,
+                19,
+                20
+            ]
+        },
+        {
+            "id": 7,
+            "name": "teste 2",
+            "email": "teste@gmail.com",
+            "password": "123qwe",
+            "barbershop_id": 2,
+            "profile": "EMPLOYEE",
+            "work_days": [
+                "Seg",
+                "Qua"
+            ],
+            "work_hours": [
+                19,
+                20,
+                18
             ]
         }
     ],

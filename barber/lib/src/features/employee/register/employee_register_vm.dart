@@ -1,4 +1,11 @@
+import 'package:asyncstate/class/async_loader_handler.dart';
+import 'package:barber/src/core/exceptions/repository_exception.dart';
+import 'package:barber/src/core/fp/either.dart';
+import 'package:barber/src/core/fp/nil.dart';
+import 'package:barber/src/core/providers/application_providers.dart';
 import 'package:barber/src/features/employee/register/employee_register_state.dart';
+import 'package:barber/src/models/babershop_model.dart';
+import 'package:barber/src/repositories/user/user_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'employee_register_vm.g.dart';
@@ -34,5 +41,40 @@ class EmployeeRegisterVm extends _$EmployeeRegisterVm {
     }
 
     state = state.copyWith(workhours: workhours);
+  }
+
+  Future<void> register({String? name, String? email, String? password}) async {
+    final EmployeeRegisterState(:registerADM, :workdays, :workhours) = state;
+    final asyncLoaderHandler = AsyncLoaderHandler()..start();
+
+    final UserRepository(:registerAdmAsEmployee, :registerEmployee) =
+        ref.read(userRepositoryProvider);
+
+    final Either<RepositoryExecption, Nil> resultRegister;
+
+    if (registerADM) {
+      final dto = (workDays: workdays, workHours: workhours);
+      resultRegister = await registerAdmAsEmployee(dto);
+    } else {
+      final BarbershopModel(:id) =
+          await ref.watch(getMyBarbershopProvider.future);
+      final dto = (
+        barbershopId: id,
+        name: name!,
+        email: email!,
+        password: password!,
+        workDays: workdays,
+        workHours: workhours
+      );
+      resultRegister = await registerEmployee(dto);
+    }
+
+    switch (resultRegister) {
+      case Success():
+        state = state.copyWith(status: EmployeeRegisterStateStatus.success);
+      case Failure():
+        state = state.copyWith(status: EmployeeRegisterStateStatus.error);
+    }
+    asyncLoaderHandler.close();
   }
 }

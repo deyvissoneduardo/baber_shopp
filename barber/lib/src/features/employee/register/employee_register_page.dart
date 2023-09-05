@@ -48,7 +48,7 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
           break;
         case EmployeeRegisterStateStatus.success:
           Messages.showSuccess('Colaborador cadastrado com sucesso', context);
-          Navigator.pop(context);
+          Navigator.of(context).pop();
         case EmployeeRegisterStateStatus.error:
           Messages.showError('Erro ao registrar colaborador', context);
       }
@@ -103,7 +103,9 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
                             onTapOutside: (_) => context.unfocus(),
                             decoration:
                                 const InputDecoration(label: Text('Nome')),
-                            validator: Validatorless.required('obrigatorio'),
+                            validator: registerADM
+                                ? null
+                                : Validatorless.required('obrigatorio'),
                           ),
                           const SizedBox(
                             height: 24,
@@ -113,10 +115,12 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
                             onTapOutside: (_) => context.unfocus(),
                             decoration:
                                 const InputDecoration(label: Text('E-mail')),
-                            validator: Validatorless.multiple([
-                              Validatorless.required('obrigatorio'),
-                              Validatorless.email('e-mail invalido'),
-                            ]),
+                            validator: registerADM
+                                ? null
+                                : Validatorless.multiple([
+                                    Validatorless.required('obrigatorio'),
+                                    Validatorless.email('e-mail invalido'),
+                                  ]),
                           ),
                           const SizedBox(
                             height: 24,
@@ -127,10 +131,12 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
                             obscureText: true,
                             decoration:
                                 const InputDecoration(label: Text('Senha')),
-                            validator: Validatorless.multiple([
-                              Validatorless.required('obrigatorio'),
-                              Validatorless.min(6, 'minimo 6'),
-                            ]),
+                            validator: registerADM
+                                ? null
+                                : Validatorless.multiple([
+                                    Validatorless.required('obrigatorio'),
+                                    Validatorless.min(6, 'minimo 6'),
+                                  ]),
                           ),
                         ],
                       ),
@@ -156,10 +162,33 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
                     height: 24,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(56)),
                     child: const Text('Cadastrar Colaborador'),
+                    onPressed: () {
+                      switch (formKey.currentState?.validate()) {
+                        case null || false:
+                          Messages.showError(
+                              'Existem campos inválidos', context);
+                        case true:
+                          final EmployeeRegisterState(
+                            workdays: List(isNotEmpty: hasWorkDays),
+                            workhours: List(isNotEmpty: hasWorkHours)
+                          ) = ref.watch(employeeRegisterVmProvider);
+
+                          if (!hasWorkDays || !hasWorkHours) {
+                            Messages.showError(
+                                'Por favor selecione os dias das semana e horário de atendimento',
+                                context);
+                            return;
+                          }
+                          employeeeRegisterVM.register(
+                            name: nameEC.text.trim(),
+                            email: emailEC.text.trim(),
+                            password: passwordEC.text.trim(),
+                          );
+                      }
+                    },
                   )
                 ],
               ),
