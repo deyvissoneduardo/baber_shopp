@@ -58,7 +58,11 @@ class _HoursPanelState extends State<HoursPanel> {
                 onPressed: (timeSelected) {
                   setState(() {
                     if (widget.singleSelection) {
-                      lastSelection = timeSelected;
+                      if (lastSelection == timeSelected) {
+                        lastSelection = null;
+                      } else {
+                        lastSelection = timeSelected;
+                      }
                     }
                   });
                   widget.onHourPressed(timeSelected);
@@ -78,7 +82,7 @@ class TimeButton extends StatefulWidget {
   final int value;
   final ValueChanged<int> onPressed;
   final bool singleSelection;
-  final int timeSelected;
+  final int? timeSelected;
 
   const TimeButton({
     super.key,
@@ -109,10 +113,12 @@ class _TimeButtonState extends State<TimeButton> {
     ) = widget;
 
     if (singleSelection) {
-      if (timeSelected == value) {
-        selected = true;
-      } else {
-        selected = false;
+      if (timeSelected != null) {
+        if (timeSelected == value) {
+          selected = true;
+        } else {
+          selected = false;
+        }
       }
     }
 

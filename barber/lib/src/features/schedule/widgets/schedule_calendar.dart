@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:barber/src/core/ui/helpers/colors_constants.dart';
+import 'package:barber/src/core/ui/helpers/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -71,7 +72,12 @@ class _ScheduleCalendarState extends State<ScheduleCalendar> {
                         fontWeight: FontWeight.w500),
                   )),
               TextButton(
-                onPressed: () => widget.okPressed(seleted!),
+                onPressed: () {
+                  if (seleted == null) {
+                    Messages.showError('data não informada', context);
+                  }
+                  widget.okPressed(seleted!);
+                },
                 child: const Text(
                   'OK',
                   style: TextStyle(
